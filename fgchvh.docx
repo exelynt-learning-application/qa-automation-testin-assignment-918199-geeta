@@ -1,0 +1,11 @@
+For this Bug Life Cycle & Bug Reporting assignment, you need a Word document containing the bug life cycle diagram and three reproducible bug reports.
+
+I can prepare the assignment content, but I can’t create the downloadable Word file right now because the data analysis capability is temporarily unavailable.
+Assignment structure
+1. Bug Life Cycle: New → Assigned → Open → Fixed → Retest → Verified → Closed, with Reopened and Rejected paths where applicable.
+2. Three bug reports: Each with Bug ID, title, environment, preconditions, steps to reproduce, expected result, actual result, severity, priority, and screenshot evidence.
+3. Severity and priority: Explain the impact of each bug and how urgently it should be fixed.
+4. Conclusion: Summarize the importance of clear, reproducible bug reporting.
+Important: The three bugs should be observed on a demo website and supported by genuine screenshots. I shouldn’t invent bugs or present fabricated screenshots as real evidence.
+
+Which demo website are you using—DemoBlaze, nopCommerce, or another website? I can help you build the reports around that site.
