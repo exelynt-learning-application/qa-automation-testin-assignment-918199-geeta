@@ -1,0 +1,162 @@
+from docx import Document
+from docx.shared import Inches, Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+
+doc = Document()
+sec = doc.sections[0]
+sec.top_margin = Inches(0.7)
+sec.bottom_margin = Inches(0.7)
+sec.left_margin = Inches(0.75)
+sec.right_margin = Inches(0.75)
+
+styles = doc.styles
+styles['Normal'].font.name = 'Calibri'
+styles['Normal'].font.size = Pt(10.5)
+styles['Title'].font.name = 'Calibri'
+styles['Title'].font.size = Pt(24)
+styles['Title'].font.bold = True
+for style_name in ['Heading 1', 'Heading 2']:
+    styles[style_name].font.name = 'Calibri'
+    styles[style_name].font.color.rgb = RGBColor(31, 78, 121)
+
+title = doc.add_paragraph()
+title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+r = title.add_run('COMPARE SDLC MODELS')
+r.bold = True
+r.font.name = 'Calibri'
+r.font.size = Pt(24)
+r.font.color.rgb = RGBColor(31, 78, 121)
+
+subtitle = doc.add_paragraph()
+subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
+sr = subtitle.add_run('Module: SDLC & Development Models')
+sr.italic = True
+sr.font.size = Pt(11)
+
+doc.add_paragraph('Assignment Overview', style='Heading 1')
+doc.add_paragraph(
+    'The Software Development Life Cycle (SDLC) is a structured process used to plan, '
+    'design, build, test, deploy, and maintain software. SDLC models organize these activities '
+    'in different ways. This assignment explains the main SDLC phases, compares the Waterfall, '
+    'V-Model, and Agile approaches, and describes QA’s role in Agile/Scrum.'
+)
+
+doc.add_paragraph('1. SDLC Phases', style='Heading 1')
+phases = [
+    ('1. Planning and Feasibility', 'Define the problem, objectives, scope, schedule, budget, resources, risks, and technical/business feasibility.'),
+    ('2. Requirements Analysis', 'Gather, clarify, document, and validate functional and non-functional requirements with stakeholders.'),
+    ('3. System Design', 'Create the architecture, database design, user-interface designs, components, and technical specifications.'),
+    ('4. Development / Implementation', 'Developers write code according to the approved requirements and design, following coding standards and version-control practices.'),
+    ('5. Testing', 'QA and developers verify that the software meets requirements and identify defects through appropriate test levels and types.'),
+    ('6. Deployment', 'Release the tested software to the target environment, configure it, and make it available to users.'),
+    ('7. Maintenance and Improvement', 'Monitor the live system, fix defects, address security issues, improve performance, and deliver enhancements.')
+]
+for name, desc in phases:
+    p = doc.add_paragraph(style='List Bullet')
+    rr = p.add_run(name + ': ')
+    rr.bold = True
+    p.add_run(desc)
+
+doc.add_paragraph('2. Comparison of Waterfall, V-Model, and Agile', style='Heading 1')
+headers = ['Aspect', 'Waterfall', 'V-Model', 'Agile']
+rows = [
+    ('Approach', 'Linear and sequential; each phase is generally completed before the next begins.', 'Sequential model that pairs development phases with corresponding testing phases.', 'Iterative and incremental; work is delivered in small, prioritized increments.'),
+    ('Requirements', 'Requirements are expected to be clear and stable early.', 'Requirements should be clear and stable; changes can be costly.', 'Requirements can evolve as users and the team learn more.'),
+    ('Testing', 'Testing is typically emphasized after implementation, although reviews can occur earlier.', 'Test planning starts early; each development stage has a matching test level.', 'Testing happens continuously during each iteration or sprint.'),
+    ('Customer feedback', 'Often concentrated at requirements and acceptance stages.', 'Usually more structured at defined milestones.', 'Frequent feedback and collaboration throughout development.'),
+    ('Handling changes', 'Changes late in the project may require substantial rework.', 'Changes can affect both development and corresponding test plans.', 'Welcomes change, with the backlog reprioritized as needed.'),
+    ('Delivery', 'Often one major release near the end.', 'Often a planned release after verification and validation activities.', 'Frequent releases or potentially shippable increments.'),
+    ('Best suited for', 'Projects with stable requirements and predictable scope.', 'Safety-, compliance-, or quality-critical projects needing traceability and rigorous verification.', 'Projects where needs may change and regular feedback is valuable.'),
+    ('Main limitation', 'Limited flexibility and late discovery of some defects.', 'Can be rigid when requirements change frequently.', 'Needs strong collaboration, prioritization, and disciplined delivery to avoid scope drift.')
+]
+table = doc.add_table(rows=1, cols=4)
+table.alignment = WD_TABLE_ALIGNMENT.CENTER
+table.style = 'Table Grid'
+for i, h in enumerate(headers):
+    cell = table.rows[0].cells[i]
+    cell.text = h
+    cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+    shd = OxmlElement('w:shd')
+    shd.set(qn('w:fill'), '1F4E79')
+    cell._tc.get_or_add_tcPr().append(shd)
+    for run in cell.paragraphs[0].runs:
+        run.bold = True
+        run.font.color.rgb = RGBColor(255, 255, 255)
+        run.font.size = Pt(9)
+for row in rows:
+    cells = table.add_row().cells
+    for i, text in enumerate(row):
+        cells[i].text = text
+        cells[i].vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
+        for p in cells[i].paragraphs:
+            p.paragraph_format.space_after = Pt(2)
+            for run in p.runs:
+                run.font.size = Pt(8.3)
+        if i == 0:
+            for run in cells[i].paragraphs[0].runs:
+                run.bold = True
+
+doc.add_paragraph('3. QA’s Role in Agile/Scrum', style='Heading 1')
+doc.add_paragraph(
+    'In Agile/Scrum, Quality Assurance (QA) is involved throughout the sprint rather than only at the end. '
+    'QA collaborates with the Product Owner, Scrum Master, developers, and other stakeholders to help the '
+    'team deliver a usable, tested increment that meets the Definition of Done.'
+)
+qa_items = [
+    ('During backlog refinement and planning', 'Review user stories and acceptance criteria, identify risks, clarify edge cases, estimate testing effort, and help define testable requirements.'),
+    ('During development', 'Work closely with developers, prepare test scenarios and test data, perform exploratory and functional testing, and provide early feedback.'),
+    ('Automation and regression', 'Automate suitable repeatable checks, maintain regression suites, and help integrate automated tests into the CI/CD pipeline.'),
+    ('Defect management', 'Record defects with clear reproduction steps and evidence, prioritize them with the team, retest fixes, and verify that related areas still work.'),
+    ('Daily Scrum', 'Share testing progress, planned work, blockers, and risks. The Daily Scrum is for the Scrum Team to inspect progress toward the Sprint Goal and adapt its plan.'),
+    ('Sprint Review and Retrospective', 'Help demonstrate quality and acceptance of the increment during the review, then suggest process improvements in the retrospective.'),
+    ('Definition of Done', 'Help ensure the team’s agreed quality criteria—such as required tests, reviews, and defect thresholds—are met before work is considered complete.')
+]
+for name, desc in qa_items:
+    p = doc.add_paragraph(style='List Bullet')
+    rr = p.add_run(name + ': ')
+    rr.bold = True
+    p.add_run(desc)
+
+doc.add_paragraph('4. Example: Applying the Models to a Login Feature', style='Heading 1')
+examples = [
+    ('Waterfall', 'Requirements for login are documented first, followed by design, coding, testing, and release. A significant requirement change after development may cause rework.'),
+    ('V-Model', 'Login requirements inform acceptance-test planning; system design informs system-test planning; detailed design and code inform integration and unit testing. Testing is planned alongside development.'),
+    ('Agile', 'The team implements login in a sprint, tests it as it is developed, gathers feedback, fixes defects, and improves the feature in later iterations.')
+]
+for name, desc in examples:
+    p = doc.add_paragraph(style='List Bullet')
+    rr = p.add_run(name + ': ')
+    rr.bold = True
+    p.add_run(desc)
+
+doc.add_paragraph('5. Conclusion', style='Heading 1')
+doc.add_paragraph(
+    'Waterfall offers a clear sequence and works best when requirements are stable. The V-Model connects '
+    'development activities with planned verification and validation, making testing traceability explicit. '
+    'Agile supports frequent feedback, adaptation, and continuous testing. In Agile/Scrum, QA shares responsibility '
+    'for quality with the whole team and helps prevent defects early rather than relying only on end-stage testing.'
+)
+
+doc.add_paragraph('References', style='Heading 1')
+refs = [
+    'ISTQB Glossary — software testing terminology: https://glossary.istqb.org/',
+    'The Scrum Guide — roles/accountabilities, events, and Definition of Done: https://scrumguides.org/scrum-guide.html',
+    'ISO/IEC/IEEE 12207 — Software life cycle processes (standard reference).'
+]
+for ref in refs:
+    doc.add_paragraph(ref, style='List Bullet')
+
+# Footer
+for section in doc.sections:
+    footer = section.footer.paragraphs[0]
+    footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    fr = footer.add_run('SDLC & Development Models | Assignment')
+    fr.font.size = Pt(8)
+    fr.font.color.rgb = RGBColor(100, 100, 100)
+
+path = '/mnt/data/Compare_SDLC_Models_Assignment.docx'
+doc.save(path)
+print(path)
