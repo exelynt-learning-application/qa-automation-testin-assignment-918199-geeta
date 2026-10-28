@@ -1,52 +1,8 @@
-For this Bug Life Cycle & Bug Reporting assignment, you need a Word document containing the bug life cycle diagram and three reproducible bug reports.
-
-I can prepare the assignment content, but I can’t create the downloadable Word file right now because the data analysis capability is temporarily unavailable.
-Assignment structure
-1. Bug Life Cycle: New → Assigned → Open → Fixed → Retest → Verified → Closed, with Reopened and Rejected paths where applicable.
-2. Three bug reports: Each with Bug ID, title, environment, preconditions, steps to reproduce, expected result, actual result, severity, priority, and screenshot evidence.
-3. Severity and priority: Explain the impact of each bug and how urgently it should be fixed.
-4. Conclusion: Summarize the importance of clear, reproducible bug reporting.
-Important: The three bugs should be observed on a demo website and supported by genuine screenshots. I shouldn’t invent bugs or present fabricated screenshots as real evidence.
-
-Which demo website are you using—DemoBlaze, nopCommerce, or another website? I can help you build the reports around that site.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-proper doc give me for push
-
-
-
-
-
-
-
-
-
-
-
-
-
-खाली Bug Life Cycle & Bug Reporting assignment साठी complete content दिला आहे. हा Word document मध्ये copy करून Bug_Life_Cycle_and_Bug_Reporting.docx नावाने save करून submit करू शकता.
-
-Downloadable .docx file तयार करण्याची सुविधा सध्या उपलब्ध नाही, त्यामुळे मी खोटी download link देणार नाही.
-Bug Life Cycle & Bug Reporting
+Assignment: Bug Life Cycle & Bug Reporting
+Module: Software Testing
 Assignment Title: Write Bug Reports
-Module: Software Testing – Bug Life Cycle and Bug Reporting
 1. Introduction
-The Bug Life Cycle is the sequence of stages a software defect goes through from the time it is identified until it is closed. Proper bug reporting helps developers understand, reproduce, and fix defects efficiently.
+The Bug Life Cycle is the sequence of stages a software defect passes through, from identification to resolution and closure. Bug reporting helps the development team reproduce defects, understand their impact, and fix them efficiently.
 2. Bug Life Cycle Diagram
 New
 
@@ -58,88 +14,31 @@ Fixed
 
 Retest
 
-Verified → Closed
+Verified
+
+Closed
 
 
-If the issue still exists after retesting, the bug is marked Reopened and returned to development. Invalid or duplicate reports may be marked Rejected or Duplicate.
+Alternative paths
+Retest fails
 
-Bug Life Cycle Stages
-1. New: QA identifies a defect and creates a bug report.
-2. Assigned: The bug is assigned to the responsible developer.
-3. Open / In Progress: The developer investigates the issue.
+Reopened
+
+Open
+
+Invalid report
+
+Rejected
+
+
+
+Explanation of stages
+1. New: QA identifies a defect and creates a report.
+2. Assigned: The defect is assigned to a developer.
+3. Open / In Progress: The developer investigates and works on the issue.
 4. Fixed: The developer implements a correction.
-5. Retest: QA tests the reported issue again.
-6. Verified: QA confirms that the defect has been fixed.
-7. Closed: The bug is closed after successful verification.
-8. Reopened: QA reopens the bug if the issue persists.
-9. Rejected / Duplicate: The report is rejected if invalid or linked to an existing duplicate.
-3. Demo Website
-Website: DemoBlaze
-
-URL: https://www.demoblaze.com/
-
-The following are sample bug-report templates for an e-commerce demo website. Verify each issue on the live website and capture the actual screenshots before submitting; these are not confirmed defects.
-4. Bug Report 1 — Login Validation
-- Bug ID: BUG-001
-- Title: Login accepts invalid credentials without a clear error message
-- Module: Login
-- Precondition: User is on the website's login page.
-- Steps to Reproduce:
-  1. Open the demo website.
-  2. Click Login.
-  3. Enter an invalid username and password.
-  4. Click the Login button.
-  5. Observe the response.
-- Expected Result: The application should reject invalid credentials and display a clear error message.
-- Actual Result: Record the actual behavior observed during testing.
-- Severity: Medium, if incorrect behavior is confirmed.
-- Priority: P2 – Normal, subject to impact assessment.
-- Screenshot: Attach a screenshot showing the entered test credentials (without real personal information) and the resulting message.
-5. Bug Report 2 — Add to Cart
-- Bug ID: BUG-002
-- Title: Product is not added to the cart after clicking Add to Cart
-- Module: Product / Cart
-- Precondition: A product details page is open.
-- Steps to Reproduce:
-  1. Open the demo website.
-  2. Select a product.
-  3. Click Add to Cart.
-  4. Open the cart.
-  5. Check whether the selected product is listed.
-- Expected Result: The selected product should be added to the cart and displayed correctly.
-- Actual Result: Record whether the product is missing, duplicated, or displayed incorrectly.
-- Severity: High if a confirmed defect prevents customers from purchasing; otherwise assess based on impact.
-- Priority: P1 if purchasing is blocked; otherwise assign priority based on business impact.
-- Screenshot: Attach screenshots of the product page and cart showing the observed result.
-6. Bug Report 3 — Cart Total Calculation
-- Bug ID: BUG-003
-- Title: Cart total does not match the selected product prices
-- Module: Shopping Cart
-- Precondition: At least one product has been added to the cart.
-- Steps to Reproduce:
-  1. Open the demo website.
-  2. Add one or more products to the cart.
-  3. Note the displayed price of each product.
-  4. Calculate the expected total.
-  5. Compare the calculated total with the displayed cart total.
-- Expected Result: The cart total should equal the sum of the selected product prices.
-- Actual Result: Record the displayed total and the independently calculated total.
-- Severity: High if an incorrect total affects payment; otherwise determine based on impact.
-- Priority: P1 if incorrect charges are possible; otherwise assign according to business urgency.
-- Screenshot: Attach a screenshot showing the selected products, individual prices, and displayed total.
-7. Severity vs. Priority
-Severity	Meaning
-Critical	System crash, data loss, or a major business function completely unavailable
-High	Major functionality is broken
-Medium	Functionality is affected, but a workaround may exist
-Low	Minor UI or cosmetic issue
-
-Priority	Meaning
-P1 – Critical	Needs immediate attention
-P2 – High	Should be fixed soon
-P3 – Normal	Can be fixed in the regular development cycle
-P4 – Low	Can be scheduled for a later release
-
-Severity measures the impact of a defect; priority measures how urgently it should be fixed. Final ratings must be based on observed behavior and business impact.
-8. Conclusion
-The bug life cycle provides a structured process for identifying, tracking, fixing, and verifying software defects. Complete bug reports with reproducible steps, expected and actual results, severity, priority, and genuine screenshots improve communication between QA engineers and developers and help deliver reliable software.
+5. Retest: QA verifies the fix using the reproduction steps.
+6. Verified: QA confirms the defect no longer occurs.
+7. Closed: The defect is considered resolved.
+8. Reopened: QA returns the defect to development if it still occurs.
+9. Rejected: The report is invalid, not reproducible, or not considered a defect.
